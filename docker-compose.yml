@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+    web:
+        image: python:latest
+        command: python test.py runserver 0.0.0.0:8000
+        command: bash
+        ports:
+          - "8000:8000"
+        depends_on:
+          - db
+    db:
+        image: mariadb:latest
+        
+    ubunt:
+        build: .
