@@ -1,13 +1,13 @@
-version: '3'
-
+version: "3"
 services:
-  db:
-    image: postgres:latest
-  app:
-    image: python:latest
-  web:
-    image: nginx: latest
-    ports:
-      - "8080:80"
-    depends_on:
-      - db
+  jupyterlab:
+        build: /users/Yuta_Nakamura/web/dockertest/jupyterlab
+        user: root
+        ports:
+          - "80:8888"
+        volumes:
+          - "./work:/home/jovyan/work" # ← notebookをホストと共有したいためディレクトリをマウント
+        environment:
+          NB_UID: 500 # ← 作業するユーザーのUID 私の環境では500だったので500を指定
+          GRANT_SUDO: "yes"
+        command: start.sh jupyter lab
